@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 40px;
+  border-bottom: 1px solid #eee;
+}
+
+.navbar h2 {
+  color: #266473;
+}
+
+.nav-actions button {
+  margin-left: 10px;
+  padding: 8px 16px;
+
+  border: 1px solid #266473;
+  background: transparent;
+  color: #266473;
+
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-actions .primary {
+  background: #17a2b8;
+  color: white;
+  border: none;
+}
+
+.nav-actions button:hover {
+  opacity: 0.9;
+}
+
+.hero {
+  padding: 80px 40px;
+  text-align: center;
+  background: linear-gradient(to right, #266473, #17a2b8);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto 25px;
+  font-size: 16px;
+}
+
+.hero-buttons button {
+  margin: 5px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.hero-buttons .primary {
+  background: white;
+  color: #266473;
+}
+
+.hero-buttons button:not(.primary) {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.features {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.features h2 {
+  margin-bottom: 30px;
+  color: #266473;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: white;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card h3 {
+  color: #17a2b8;
+  margin-bottom: 10px;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #f5f5f5;
+  color: #777;
+}

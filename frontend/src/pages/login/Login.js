@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-//import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //import { UserContext } from "../UserContext";
 import './Login.css';
 
@@ -58,6 +58,15 @@ const Login = () => {
     }
   };
 */
+const navigate = useNavigate();
+
+const handleLogin = () => {
+  navigate("/search");
+};
+
+const handleRequestAccess = () => {
+  navigate("/requestAccess");
+};
   return (
     <div class="login">
       <div className="wrapper">
@@ -92,19 +101,15 @@ const Login = () => {
 
                 <div className="pt-1">
                   <button type="button mt-3" 
-                          //onClick={onSubmit}
+                          onClick={handleLogin}
                           style={{ fontSize: "15px" }}>
-                            Login
+                    Login
                   </button>
                 </div>
 
-                <div className="row pl-3 pt-2">
-                  <div className="col-lg-6">
-                    <a href="/" style={{ textDecoration: "none", fontSize: "15px" }}>Remember me for <b>30 days</b></a>
-                  </div>
-                  <div className="col-lg-6">
-                    <a href="/" style={{ textDecoration: "none", fontSize: "15px" }}>Forgot Password?</a>
-                  </div>
+                <div className="login-options">
+                  <a href="/" className="left">Remember me for <b>30 days</b></a>
+                  <a href="/" className="right">Forgot Password?</a>
                 </div>
 
               <h2 className="text-white">Don't have access?</h2>
@@ -113,7 +118,7 @@ const Login = () => {
                   
                 <div className="pt-1">
                   <button type="button mt-3" 
-                          //onClick={onRequestAccess}
+                          onClick={handleRequestAccess}
                           style={{ fontSize: "15px" }}>
                             Request Access
                   </button>

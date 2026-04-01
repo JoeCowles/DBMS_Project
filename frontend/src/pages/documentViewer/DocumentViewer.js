@@ -1,8 +1,12 @@
 // eslint-disable-next-line
 import { Viewer } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+
 import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 import "./DocumentViewer.css";
+import Header from "../component/header/Header";
 
 import * as pdfjs from "pdfjs-dist";
 pdfjs.GlobalWorkerOptions.workerSrc =
@@ -23,15 +27,22 @@ const renderPage = (props) => {
 };
 
 const DocumentViewer = () => {
+  
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
   return (
-    <div className="viewer-container">
-      <div className="viewer-inner">
-        <Viewer
-          fileUrl="./Sample.pdf"
-          renderPage={renderPage}
-        />
+    <>
+      <Header/>
+      <div className="viewer-container">
+        <div className="viewer-inner">
+          <Viewer
+            fileUrl="./Sample.pdf"
+            renderPage={renderPage}
+            plugins={[defaultLayoutPluginInstance]}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
