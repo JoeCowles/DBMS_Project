@@ -1,0 +1,765 @@
+{
+  "info": {
+    "_postman_id": "db50886e-4cff-490f-99e0-5fbe13dc61db",
+    "name": "DBMS Project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "0"
+  },
+  "item": [
+    {
+      "name": "Root",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User By Username",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/User 1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "User 1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@example.com\",\n  \"password\": \"securepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/testuser",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "testuser"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"updated@example.com\",\n  \"password\": \"newpassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/testuser",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "testuser"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Procedure Types",
+      "item": [
+        {
+          "name": "Get All Procedure Types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/procedure-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedure-types"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Procedure Type By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/procedure-types/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedure-types",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Procedure Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/procedure-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedure-types"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"X-Ray\",\n  \"description\": \"Diagnostic imaging procedure\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Procedure Type",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/procedure-types/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedure-types",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"X-Ray Updated\",\n  \"description\": \"Updated description\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Procedure Type",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/procedure-types/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedure-types",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Procedures",
+      "item": [
+        {
+          "name": "Get All Procedures",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/procedures",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedures"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Procedure By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/procedures/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedures",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Procedure",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/procedures",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedures"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"procedure_type_id\": 1,\n  \"user_id\": \"testuser\",\n  \"date_of_service\": \"2026-04-08\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Procedure",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/procedures/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedures",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"procedure_type_id\": 1,\n  \"user_id\": \"testuser\",\n  \"date_of_service\": \"2026-05-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Procedure",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/procedures/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "procedures",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Insurance Providers",
+      "item": [
+        {
+          "name": "Get All Insurance Providers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/insurance-providers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "insurance-providers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Insurance Provider By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/insurance-providers/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "insurance-providers",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Insurance Provider",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/insurance-providers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "insurance-providers"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Blue Cross\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Insurance Provider",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/insurance-providers/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "insurance-providers",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Blue Cross Blue Shield\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Insurance Provider",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/insurance-providers/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "insurance-providers",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Policies",
+      "item": [
+        {
+          "name": "Get All Policies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/policies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Policy By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Policy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insurance_provider_id\": 1,\n  \"name\": \"Gold Plan\",\n  \"deductible\": \"500\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Policy",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insurance_provider_id\": 1,\n  \"name\": \"Gold Plan Updated\",\n  \"deductible\": \"250\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Policy",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/policies/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policies",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Policy Coverages",
+      "item": [
+        {
+          "name": "Get All Policy Coverages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/policy-coverages",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policy-coverages"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Policy Coverage By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/policy-coverages/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policy-coverages",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Policy Coverage",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policy-coverages",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policy-coverages"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"policy_id\": 1,\n  \"procedure_type_id\": 1,\n  \"description\": \"80% coverage after deductible\",\n  \"link_to_original\": \"https://example.com/policy.pdf\",\n  \"start_date\": \"2026-01-01\",\n  \"end_date\": \"2026-12-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Policy Coverage",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/policy-coverages/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policy-coverages",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"policy_id\": 1,\n  \"procedure_type_id\": 1,\n  \"description\": \"90% coverage after deductible\",\n  \"link_to_original\": \"https://example.com/policy-v2.pdf\",\n  \"start_date\": \"2026-01-01\",\n  \"end_date\": \"2026-12-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Policy Coverage",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/policy-coverages/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "policy-coverages",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}
