@@ -22,10 +22,11 @@ class UserDAO:
         self.db_session.commit()
         return user
 
-    def delete_user(self, username):
-        user = self.get_user_by_username(username)
-        if user:
-            self.db_session.delete(user)
-            self.db_session.commit()
-            return True
-        return False
+    def authenticate_user(self, identifier, password):
+        # identifier can be username or email
+        user = self.db_session.query(UserSchema).filter(
+            (UserSchema.Username == identifier) | (UserSchema.Email == identifier)
+        ).first()
+        if user and user.Password == password:
+            return user
+        return None

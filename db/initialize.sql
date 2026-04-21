@@ -36,5 +36,16 @@ CREATE TABLE IF NOT EXISTS PolicyCoverage (
     Description TEXT NOT NULL,
     LinkToOriginal TEXT NOT NULL,
     StartDate DATE NOT NULL,
-    EndDate DATE NOT NULL
+    EndDate DATE NOT NULL,
+    DocumentURL TEXT,
+    AddedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS PolicyCode (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    PolicyCoverageID INTEGER NOT NULL REFERENCES PolicyCoverage(ID) ON DELETE CASCADE,
+    Code TEXT NOT NULL,
+    Description TEXT NOT NULL,
+    CodeType TEXT NOT NULL,
+    CoverageStatus TEXT NOT NULL
 );

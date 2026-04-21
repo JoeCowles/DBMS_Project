@@ -59,7 +59,9 @@ with sqlite3.connect('database.db') as db:
             Description TEXT NOT NULL,
             LinkToOriginal TEXT NOT NULL,
             StartDate DATE NOT NULL,
-            EndDate DATE NOT NULL
+            EndDate DATE NOT NULL,
+            DocumentURL TEXT,
+            AddedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     """)
 

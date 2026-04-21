@@ -81,3 +81,20 @@ body {
 .request-btn:hover {
   background: #266473;
 }
+
+.request-btn:disabled {
+  background: #9bbfc6;
+  cursor: not-allowed;
+}
+
+.form-group label span {
+  color: #d9534f;
+  margin-left: 2px;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 14px;
+  margin: 10px 0 0 0;
+  text-align: center;
+}

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from datetime import date
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from datetime import date, datetime
+from sqlalchemy import Column, Integer, String, Date, DateTime, ForeignKey, func
 from .base import Base
 
 
@@ -12,6 +12,8 @@ class PolicyCoverageModel(BaseModel):
     link_to_original: str
     start_date: date
     end_date: date
+    document_url: str | None = None
+    added_date: datetime | None = None
 
     class Config:
         from_attributes = True
@@ -27,3 +29,5 @@ class PolicyCoverageSchema(Base):
     LinkToOriginal = Column(String, nullable=False)
     StartDate = Column(Date, nullable=False)
     EndDate = Column(Date, nullable=False)
+    DocumentURL = Column(String, nullable=True)
+    AddedDate = Column(DateTime, server_default=func.now(), nullable=True)

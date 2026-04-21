@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import "./Search.css";
 
 import Header from "../component/header/Header";
@@ -20,12 +20,25 @@ const Search = () => {
     });
   };
   
-    const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    console.log("Search Data:", formData);
-    navigate("/documentViewer");
+    if (formData.procedureName) {
+      try {
+        const response = await fetch(`http://localhost:8000/procedure-types/search?name=${encodeURIComponent(formData.procedureName)}`);
+        if (response.ok) {
+          const data = await response.json();
+          alert(`Procedure Type Found!\nID: ${data.id}\nName: ${data.name}\nDescription: ${data.description}`);
+        } else {
+          alert("Procedure type not found");
+        }
+      } catch (error) {
+        alert("Search failed: " + error.message);
+      }
+    } else {
+      alert("Please enter a procedure name");
+    }
   };
 
   return (

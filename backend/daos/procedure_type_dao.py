@@ -12,6 +12,9 @@ class ProcedureTypeDAO:
     def get_procedure_type_by_id(self, procedure_type_id):
         return self.db_session.query(ProcedureTypeSchema).filter(ProcedureTypeSchema.ID == procedure_type_id).first()
 
+    def get_procedure_type_by_name(self, name):
+        return self.db_session.query(ProcedureTypeSchema).filter(ProcedureTypeSchema.Name.ilike(f"%{name}%")).all()
+
     def create_procedure_type(self, procedure_type):
         self.db_session.add(procedure_type)
         self.db_session.commit()

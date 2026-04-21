@@ -1,5 +1,11 @@
 from fastapi import APIRouter, HTTPException
 from schema.user import UserModel, UserSchema
+from pydantic import BaseModel
+
+
+class LoginRequest(BaseModel):
+    identifier: str
+    password: str
 
 
 class UserEPS:
@@ -11,6 +17,7 @@ class UserEPS:
         self.router.add_api_route("", self.create_user, methods=["POST"])
         self.router.add_api_route("/{username}", self.update_user, methods=["PUT"])
         self.router.add_api_route("/{username}", self.delete_user, methods=["DELETE"])
+        self.router.add_api_route("/login", self.login, methods=["POST"])
 
     def _to_dict(self, u):
         return {"username": u.Username, "email": u.Email, "password": u.Password}
@@ -40,3 +47,9 @@ class UserEPS:
         if not self.user_dao.delete_user(username):
             raise HTTPException(status_code=404, detail="User not found")
         return {"deleted": username}
+
+    async def login(self, login_req: LoginRequest):
+        user = self.user_dao.authenticate_user(login_req.identifier, login_req.password)
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        return self._to_dict(user)

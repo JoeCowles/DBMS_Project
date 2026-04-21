@@ -7,6 +7,7 @@ class ProcedureTypeEPS:
         self.procedure_type_dao = procedure_type_dao
         self.router = APIRouter(prefix="/procedure-types", tags=["Procedure Types"])
         self.router.add_api_route("", self.get_all_procedure_types, methods=["GET"])
+        self.router.add_api_route("/search", self.search_procedure_type_by_name, methods=["GET"])
         self.router.add_api_route("/{procedure_type_id}", self.get_procedure_type_by_id, methods=["GET"])
         self.router.add_api_route("", self.create_procedure_type, methods=["POST"])
         self.router.add_api_route("/{procedure_type_id}", self.update_procedure_type, methods=["PUT"])
@@ -17,6 +18,12 @@ class ProcedureTypeEPS:
 
     async def get_all_procedure_types(self):
         return [self._to_dict(pt) for pt in self.procedure_type_dao.get_all_procedure_types()]
+
+    async def search_procedure_type_by_name(self, name: str):
+        results = self.procedure_type_dao.get_procedure_type_by_name(name)
+        if not results:
+            raise HTTPException(status_code=404, detail="Procedure type not found")
+        return [self._to_dict(pt) for pt in results]
 
     async def get_procedure_type_by_id(self, procedure_type_id: int):
         pt = self.procedure_type_dao.get_procedure_type_by_id(procedure_type_id)
