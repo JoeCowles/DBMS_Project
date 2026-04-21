@@ -6,6 +6,7 @@ services:
     volumes:
       - ./backend:/app
       - ./db:/app/db
+      - ./docs:/app/docs
     restart: unless-stopped
 
   frontend:

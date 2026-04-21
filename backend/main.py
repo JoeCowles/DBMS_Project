@@ -26,6 +26,7 @@ from endpoints import (
 
 
 import os
+from fastapi.staticfiles import StaticFiles
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:////app/db/database.db")
 print(f"[DB] Connecting to: {DATABASE_URL}")
@@ -39,6 +40,9 @@ import schema  # noqa: F401
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+docs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
+app.mount("/docs", StaticFiles(directory=docs_path), name="docs")
 
 app.add_middleware(
     CORSMiddleware,

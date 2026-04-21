@@ -1,16 +1,248 @@
-.viewer-container {
-    width: 50vw;         
-    height: 80vh;
-    margin: 40px auto; 
-    
-    border: 1px solid #ddd;
-    border-radius: 10px;
+.layout {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 60px);
     overflow: hidden;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    background: white;
 }
 
-.viewer-inner {
+.sidebar {
+    flex: 0 0 25%;
+    min-width: 0;
+    background: white;
+    border-right: 1px solid #e0e0e0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.meta {
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #266473;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.tag {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tag.provider {
+    background: #e0f4f7;
+    color: #17a2b8;
+}
+
+.tag.policy {
+    background: #eaf0f3;
+    color: #266473;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.info-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #999;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 13px;
+    color: #333;
+}
+
+.source-link {
+    font-size: 13px;
+    color: #17a2b8;
+    text-decoration: none;
+}
+
+.source-link:hover {
+    text-decoration: underline;
+}
+
+.codes-section {
+    padding: 16px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.codes-heading {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #999;
+    margin: 0 0 10px 0;
+}
+
+.tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 6px 10px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #888;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: -1px;
+    transition: 0.15s;
+}
+
+.tab:hover {
+    color: #266473;
+}
+
+.tab-count {
+    background: #eee;
+    border-radius: 8px;
+    padding: 1px 6px;
+    font-size: 11px;
+}
+
+.tab.active .tab-count {
+    background: #e8f4f6;
+}
+
+.type-filters {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 4px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.type-btn:hover {
+    border-color: #17a2b8;
+    color: #17a2b8;
+}
+
+.type-btn.active {
+    background: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+}
+
+.code-search {
+    width: 100%;
+    padding: 7px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.15s;
+}
+
+.code-search:focus {
+    border-color: #17a2b8;
+}
+
+.no-codes {
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+    padding: 16px 0;
+}
+
+.codes-list {
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.code-row {
+    display: grid;
+    grid-template-columns: 52px 64px 1fr;
+    align-items: start;
+    gap: 6px;
+    font-size: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.code-badge {
+    background: #f0f0f0;
+    color: #555;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 4px;
+    text-align: center;
+    align-self: start;
+    margin-top: 1px;
+}
+
+.code-value {
+    font-weight: 600;
+    color: #266473;
+    word-break: break-all;
+}
+
+.code-desc {
+    color: #555;
+    line-height: 1.4;
+}
+
+.viewer {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.no-doc,
+.no-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
+    color: #aaa;
+    font-size: 14px;
+    padding: 20px;
+    text-align: center;
 }

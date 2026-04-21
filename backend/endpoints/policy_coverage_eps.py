@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter, HTTPException
 from schema.policy_coverage import PolicyCoverageModel, PolicyCoverageSchema
 
@@ -6,7 +7,9 @@ class PolicyCoverageEPS:
     def __init__(self, policy_coverage_dao):
         self.policy_coverage_dao = policy_coverage_dao
         self.router = APIRouter(prefix="/policy-coverages", tags=["Policy Coverages"])
+        self.router.add_api_route("/search", self.search_policy_coverages, methods=["GET"])
         self.router.add_api_route("", self.get_all_policy_coverages, methods=["GET"])
+        self.router.add_api_route("/{coverage_id}/details", self.get_coverage_details, methods=["GET"])
         self.router.add_api_route("/{coverage_id}", self.get_policy_coverage_by_id, methods=["GET"])
         self.router.add_api_route("", self.create_policy_coverage, methods=["POST"])
         self.router.add_api_route("/{coverage_id}", self.update_policy_coverage, methods=["PUT"])
@@ -22,6 +25,21 @@ class PolicyCoverageEPS:
             "start_date": str(c.StartDate),
             "end_date": str(c.EndDate),
         }
+
+    async def search_policy_coverages(
+        self,
+        name: Optional[str] = None,
+        cpt_code: Optional[str] = None,
+        provider: Optional[str] = None,
+    ):
+        rows = self.policy_coverage_dao.search(name=name, cpt_code=cpt_code, provider=provider)
+        return [dict(r) for r in rows]
+
+    async def get_coverage_details(self, coverage_id: int):
+        details = self.policy_coverage_dao.get_coverage_details(coverage_id)
+        if not details:
+            raise HTTPException(status_code=404, detail="Policy coverage not found")
+        return details
 
     async def get_all_policy_coverages(self):
         return [self._to_dict(c) for c in self.policy_coverage_dao.get_all_policy_coverages()]
