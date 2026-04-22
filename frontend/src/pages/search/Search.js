@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Search.css";
 import Header from "../component/header/Header";
@@ -8,15 +8,31 @@ const Search = () => {
     cptCode: "",
     procedureName: "",
     provider: "",
+    dateFrom: "",
+    dateTo: "",
+    latestOnly: true,
   });
   const [results, setResults] = useState([]);
   const [searched, setSearched] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [providers, setProviders] = useState([]);
+  const [procedureTypes, setProcedureTypes] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetch("http://localhost:8000/insurance-providers")
+      .then((r) => r.ok ? r.json() : [])
+      .then(setProviders)
+      .catch(() => setProviders([]));
+    fetch("http://localhost:8000/procedure-types")
+      .then((r) => r.ok ? r.json() : [])
+      .then(setProcedureTypes)
+      .catch(() => setProcedureTypes([]));
+  }, []);
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
   };
 
   const handleSearch = async (e) => {
@@ -28,6 +44,9 @@ const Search = () => {
     if (formData.cptCode) params.append("cpt_code", formData.cptCode);
     if (formData.procedureName) params.append("name", formData.procedureName);
     if (formData.provider) params.append("provider", formData.provider);
+    if (formData.dateFrom) params.append("date_from", formData.dateFrom);
+    if (formData.dateTo) params.append("date_to", formData.dateTo);
+    if (formData.latestOnly) params.append("latest_only", "true");
 
     try {
       const response = await fetch(`http://localhost:8000/policy-coverages/search?${params}`);
@@ -65,24 +84,63 @@ const Search = () => {
             </div>
 
             <div className="form-group">
-              <label>Procedure Name</label>
+              <label>Procedure Type</label>
               <input
                 type="text"
                 name="procedureName"
-                placeholder="e.g. Adalimumab, Dialysis"
+                placeholder="Type or select a procedure type…"
                 value={formData.procedureName}
                 onChange={handleChange}
+                list="procedure-types-list"
+                autoComplete="off"
               />
+              <datalist id="procedure-types-list">
+                {procedureTypes.map((pt) => (
+                  <option key={pt.id} value={pt.name} />
+                ))}
+              </datalist>
             </div>
 
             <div className="form-group">
               <label>Insurance Provider</label>
               <select name="provider" value={formData.provider} onChange={handleChange}>
                 <option value="">All providers</option>
-                <option value="Aetna">Aetna</option>
-                <option value="Blue Cross">Blue Cross</option>
-                <option value="Cigna">Cigna</option>
+                {providers.map((p) => (
+                  <option key={p.id} value={p.name}>{p.name}</option>
+                ))}
               </select>
+            </div>
+
+            <div className="form-group form-group-row">
+              <div className="form-group-half">
+                <label>Coverage From</label>
+                <input
+                  type="date"
+                  name="dateFrom"
+                  value={formData.dateFrom}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group-half">
+                <label>Coverage To</label>
+                <input
+                  type="date"
+                  name="dateTo"
+                  value={formData.dateTo}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="form-group form-check">
+              <input
+                type="checkbox"
+                id="latestOnly"
+                name="latestOnly"
+                checked={formData.latestOnly}
+                onChange={handleChange}
+              />
+              <label htmlFor="latestOnly">Show latest version only</label>
             </div>
 
             <button type="submit" className="search-btn" disabled={loading}>

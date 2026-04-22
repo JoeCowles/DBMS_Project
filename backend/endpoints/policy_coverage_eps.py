@@ -31,8 +31,20 @@ class PolicyCoverageEPS:
         name: Optional[str] = None,
         cpt_code: Optional[str] = None,
         provider: Optional[str] = None,
+        procedure_type_id: Optional[int] = None,
+        date_from: Optional[str] = None,
+        date_to: Optional[str] = None,
+        latest_only: bool = False,
     ):
-        rows = self.policy_coverage_dao.search(name=name, cpt_code=cpt_code, provider=provider)
+        rows = self.policy_coverage_dao.search(
+            name=name,
+            cpt_code=cpt_code,
+            provider=provider,
+            procedure_type_id=procedure_type_id,
+            date_from=date_from,
+            date_to=date_to,
+            latest_only=latest_only,
+        )
         return [dict(r) for r in rows]
 
     async def get_coverage_details(self, coverage_id: int):

@@ -7,7 +7,8 @@ class PolicyCoverageDAO:
     def __init__(self, db_session):
         self.db_session = db_session
 
-    def search(self, name=None, cpt_code=None, provider=None):
+    def search(self, name=None, cpt_code=None, provider=None,
+               procedure_type_id=None, date_from=None, date_to=None, latest_only=False):
         base = """
             SELECT
                 pc.ID             AS id,
@@ -39,6 +40,28 @@ class PolicyCoverageDAO:
         if provider:
             conditions.append("ip.Name LIKE :provider")
             params["provider"] = f"%{provider}%"
+
+        if procedure_type_id:
+            conditions.append("pc.ProcedureTypeID = :procedure_type_id")
+            params["procedure_type_id"] = procedure_type_id
+
+        if date_from:
+            conditions.append("pc.EndDate >= :date_from")
+            params["date_from"] = date_from
+
+        if date_to:
+            conditions.append("pc.StartDate <= :date_to")
+            params["date_to"] = date_to
+
+        if latest_only:
+            conditions.append("""
+                pc.EndDate = (
+                    SELECT MAX(pc2.EndDate)
+                    FROM PolicyCoverage pc2
+                    WHERE pc2.PolicyID = pc.PolicyID
+                      AND pc2.ProcedureTypeID = pc.ProcedureTypeID
+                )
+            """)
 
         if conditions:
             base += " WHERE " + " AND ".join(conditions)
