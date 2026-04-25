@@ -6,14 +6,15 @@ const Login = () => {
 
   const [form, setForm] = useState({
     identifier: "",
-    password: ""
+    password: "",
+    rememberMe: false,
   });
 
   const navigate = useNavigate();
 
   const onFormInputChange = (event) => {
-    const { name, value } = event.target;
-    setForm({ ...form, [name]: value });
+    const { name, value, type, checked } = event.target;
+    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
   const onSubmit = async (event) => {
@@ -31,8 +32,20 @@ const Login = () => {
       });
       if (response.ok) {
         const user = await response.json();
-        localStorage.setItem('user', JSON.stringify(user));
-        navigate("/search");
+        if (form.rememberMe) {
+          localStorage.setItem('user', JSON.stringify(user));
+        } else {
+          sessionStorage.setItem('user', JSON.stringify(user));
+        }
+        let landing = "/search";
+        try {
+          const prefRes = await fetch(`http://localhost:8000/preferences/${user.id}`);
+          if (prefRes.ok) {
+            const pref = await prefRes.json();
+            if (pref?.preference === "Dashboard") landing = "/dashboard";
+          }
+        } catch (_) {}
+        navigate(landing);
       } else {
         alert("Invalid credentials");
       }
@@ -44,66 +57,88 @@ const Login = () => {
   const handleRequestAccess = () => {
     navigate("/requestAccess");
   };
+
   return (
-    <div class="login">
+    <div className="login">
       <div className="wrapper">
         <div className="container">
+
           <div className="col-left">
             <div className="login-text">
+              <div className="login-brand">PolicyHub</div>
+              <h2>Welcome back</h2>
+              <p>
+                Your centralized platform for insurance policy
+                coverage research and billing support.
+              </p>
+              <ul className="login-features">
+                <li>Instant CPT / HCPCS / ICD-10 code lookup</li>
+                <li>Up-to-date coverage from major insurers</li>
+                <li>Full policy version history by date of service</li>
+              </ul>
             </div>
           </div>
+
           <div className="col-right">
             <div className="login-form">
-              <h2>Sign-in</h2>
+              <h2>Sign in</h2>
               <form onSubmit={onSubmit}>
-                <p className="pt-3">
-                  <label>Username or email address<span>*</span></label>
-                  <input placeholder="Username or Email"
+                <div className="form-field">
+                  <label>Username or email <span>*</span></label>
+                  <input
+                    placeholder="Username or email"
                     type="text"
                     name="identifier"
                     value={form.identifier}
                     onChange={onFormInputChange}
-                    required />
-                </p>
-                <p className="pt-3">
-                  <label>Password<span>*</span></label>
-                  <input type="password" placeholder="Password"
+                    required
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label>Password <span>*</span></label>
+                  <input
+                    type="password"
+                    placeholder="Password"
                     name="password"
                     value={form.password}
                     onChange={onFormInputChange}
-                    required />
-                </p>
-
-                <div className="pt-1">
-                  <button type="submit" 
-                          style={{ fontSize: "15px" }}>
-                    Login
-                  </button>
+                    required
+                  />
                 </div>
 
                 <div className="login-options">
-                  <a href="/" className="left">Remember me for <b>30 days</b></a>
+                  <label className="remember-me">
+                    <input
+                      type="checkbox"
+                      name="rememberMe"
+                      checked={form.rememberMe}
+                      onChange={onFormInputChange}
+                    />
+                    Remember me for <b>30 days</b>
+                  </label>
                   <a href="/" className="right">Forgot Password?</a>
                 </div>
 
-              <h2 className="text-white">Don't have access?</h2>
-              <p>This platform is available to approved hospital partners only.</p>
-              <p>Request access or contact your hospital administrator too get started.</p>
-                  
-                <div className="pt-1">
-                  <button type="button" 
-                          onClick={handleRequestAccess}
-                          style={{ fontSize: "15px" }}>
-                            Request Access
-                  </button>
-                </div>
+                <button type="submit" className="login-btn">Login</button>
               </form>
+
+              <div className="access-divider">
+                <span>New to PolicyHub?</span>
+              </div>
+              <p className="access-note">
+                This platform is available to approved hospital partners only.
+              </p>
+              <button type="button" className="access-btn" onClick={handleRequestAccess}>
+                Request Access
+              </button>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

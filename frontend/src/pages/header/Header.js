@@ -6,7 +6,8 @@ const Header = () => {
   const location = useLocation();
 
   const handleLogout = () => {
-    // later: clear auth tokens/session
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     navigate("/");
   };
 

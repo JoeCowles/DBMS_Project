@@ -1,0 +1,100 @@
+.settings-wrapper {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  gap: 20px;
+}
+
+.settings-section {
+  width: 70%;
+  max-width: 720px;
+  min-width: 380px;
+  background: white;
+  padding: 30px 36px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.settings-section h2 {
+  margin: 0 0 20px;
+  color: #266473;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.settings-section .form-group {
+  margin-bottom: 16px;
+}
+
+.settings-section label {
+  display: block;
+  margin-bottom: 6px;
+  color: #266473;
+  font-weight: 500;
+  font-size: 13.5px;
+}
+
+.settings-section input,
+.settings-section select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+  transition: 0.2s;
+}
+
+.settings-section input:focus,
+.settings-section select:focus {
+  border-color: #17a2b8;
+}
+
+.settings-section input:disabled {
+  background: #f3f5f7;
+  color: #8a9aa6;
+  cursor: not-allowed;
+}
+
+.save-btn {
+  padding: 10px 24px;
+  background: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.save-btn:hover {
+  background: #1391a5;
+}
+
+.status-msg {
+  width: 70%;
+  max-width: 720px;
+  min-width: 380px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.status-msg.success {
+  background: #e6f7ec;
+  color: #1a7f4b;
+  border: 1px solid #c4e8d3;
+}
+
+.status-msg.error {
+  background: #fdecea;
+  color: #c0392b;
+  border: 1px solid #f2c6c1;
+}

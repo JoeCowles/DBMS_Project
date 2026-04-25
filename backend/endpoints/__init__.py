@@ -5,3 +5,5 @@ from .procedure_eps import ProcedureEPS
 from .insurance_provider_eps import InsuranceProviderEPS
 from .policy_coverage_eps import PolicyCoverageEPS
 from .pending_user_eps import PendingUserEPS
+from .user_favorite_eps import UserFavoriteEPS
+from .user_preference_eps import UserPreferenceEPS

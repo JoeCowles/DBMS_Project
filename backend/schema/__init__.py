@@ -5,3 +5,5 @@ from .procedure import *
 from .procedure_type import *
 from .user import *
 from .pending_user import *
+from .user_favorite import *
+from .user_preference import *

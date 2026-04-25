@@ -13,6 +13,8 @@ from daos.insurance_provider_dao import InsuranceProviderDAO
 from daos.policy_dao import PolicyDAO
 from daos.policy_coverage_dao import PolicyCoverageDAO
 from daos.pending_user_dao import PendingUserDAO
+from daos.user_favorite_dao import UserFavoriteDAO
+from daos.user_preference_dao import UserPreferenceDAO
 
 from endpoints import (
     UserEPS,
@@ -22,6 +24,8 @@ from endpoints import (
     PolicyEPS,
     PolicyCoverageEPS,
     PendingUserEPS,
+    UserFavoriteEPS,
+    UserPreferenceEPS,
 )
 
 
@@ -60,6 +64,8 @@ insurance_provider_dao = InsuranceProviderDAO(db)
 policy_dao = PolicyDAO(db)
 policy_coverage_dao = PolicyCoverageDAO(db)
 pending_user_dao = PendingUserDAO(db)
+user_favorite_dao = UserFavoriteDAO(db)
+user_preference_dao = UserPreferenceDAO(db)
 
 # Endpoints
 user_eps = UserEPS(user_dao)
@@ -69,6 +75,8 @@ insurance_provider_eps = InsuranceProviderEPS(insurance_provider_dao)
 policy_eps = PolicyEPS(policy_dao)
 policy_coverage_eps = PolicyCoverageEPS(policy_coverage_dao)
 pending_user_eps = PendingUserEPS(pending_user_dao)
+user_favorite_eps = UserFavoriteEPS(user_favorite_dao)
+user_preference_eps = UserPreferenceEPS(user_preference_dao)
 
 # Register routers
 app.include_router(user_eps.router)
@@ -78,6 +86,8 @@ app.include_router(insurance_provider_eps.router)
 app.include_router(policy_eps.router)
 app.include_router(policy_coverage_eps.router)
 app.include_router(pending_user_eps.router)
+app.include_router(user_favorite_eps.router)
+app.include_router(user_preference_eps.router)
 
 
 @app.get("/")

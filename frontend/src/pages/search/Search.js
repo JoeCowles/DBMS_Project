@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Search.css";
-import Header from "../component/header/Header";
+import Header from "../header/Header";
+import { getCurrentUser } from "../../utils/CurrentUser";
 
 const Search = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,8 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [providers, setProviders] = useState([]);
   const [procedureTypes, setProcedureTypes] = useState([]);
+  const [favoriteIds, setFavoriteIds] = useState(new Set());
+  const user = getCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +31,45 @@ const Search = () => {
       .then((r) => r.ok ? r.json() : [])
       .then(setProcedureTypes)
       .catch(() => setProcedureTypes([]));
-  }, []);
+    if (user?.id) {
+      fetch(`http://localhost:8000/favorites/ids?user_id=${user.id}`)
+        .then((r) => r.ok ? r.json() : [])
+        .then((ids) => setFavoriteIds(new Set(ids)))
+        .catch(() => {});
+    }
+  }, [user?.id]);
+
+  const toggleFavorite = async (coverageId, e) => {
+    e.stopPropagation();
+    if (!user?.id) return;
+    const isFavorited = favoriteIds.has(coverageId);
+    try {
+      if (isFavorited) {
+        const res = await fetch(
+          `http://localhost:8000/favorites/${user.id}/${coverageId}`,
+          { method: "DELETE" }
+        );
+        if (res.ok) {
+          setFavoriteIds((prev) => {
+            const next = new Set(prev);
+            next.delete(coverageId);
+            return next;
+          });
+        }
+      } else {
+        const res = await fetch("http://localhost:8000/favorites", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: user.id, policy_coverage_id: coverageId }),
+        });
+        if (res.ok) {
+          setFavoriteIds((prev) => new Set(prev).add(coverageId));
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -169,6 +210,15 @@ const Search = () => {
                         <span className="result-name">{r.description}</span>
                         {r.code_count > 0 && (
                           <span className="code-count-badge">{r.code_count} codes</span>
+                        )}
+                        {user?.id && (
+                          <button
+                            className={`favorite-btn ${favoriteIds.has(r.id) ? "favorited" : ""}`}
+                            title={favoriteIds.has(r.id) ? "Remove from favorites" : "Add to favorites"}
+                            onClick={(e) => toggleFavorite(r.id, e)}
+                          >
+                            {favoriteIds.has(r.id) ? "★" : "☆"}
+                          </button>
                         )}
                       </div>
 

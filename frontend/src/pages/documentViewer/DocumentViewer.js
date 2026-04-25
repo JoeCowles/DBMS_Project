@@ -8,7 +8,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 import "./DocumentViewer.css";
-import Header from "../component/header/Header";
+import Header from "../header/Header";
 
 import * as pdfjs from "pdfjs-dist";
 pdfjs.GlobalWorkerOptions.workerSrc =

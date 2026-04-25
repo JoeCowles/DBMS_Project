@@ -24,36 +24,40 @@ const Landing = () => {
             PolicyHub provides a centralized platform for hospital billing teams
             to quickly access accurate, up-to-date insurance policy coverage.
           </p>
-
           <div className="hero-buttons">
-            <button className="primary" onClick={() => navigate("/request-access")}>
+            <button className="primary" onClick={() => navigate("/requestAccess")}>
               Get Access
             </button>
-            <button onClick={() => navigate("/")}>Login</button>
+            <button onClick={() => navigate("/login")}>Sign In</button>
           </div>
         </div>
       </div>
 
       <div className="features">
         <h2>Why PolicyHub?</h2>
+        <p className="features-sub">Everything your billing team needs — in one place.</p>
 
         <div className="feature-grid">
           <div className="feature-card">
+            <span className="feature-icon">&#128269;</span>
             <h3>Fast Search</h3>
             <p>Find policy coverage instantly using CPT codes or procedures.</p>
           </div>
 
           <div className="feature-card">
+            <span className="feature-icon">&#128204;</span>
             <h3>Up-to-Date Data</h3>
             <p>Access the latest insurance policy changes without delays.</p>
           </div>
 
           <div className="feature-card">
+            <span className="feature-icon">&#128196;</span>
             <h3>Version History</h3>
             <p>View coverage based on Date of Service with full history.</p>
           </div>
 
           <div className="feature-card">
+            <span className="feature-icon">&#127970;</span>
             <h3>Centralized Platform</h3>
             <p>No more spreadsheets — everything in one reliable system.</p>
           </div>
@@ -61,7 +65,7 @@ const Landing = () => {
       </div>
 
       <div className="footer">
-        <p>© 2026 PolicyHub. All rights reserved.</p>
+        <p>&copy; 2026 PolicyHub. All rights reserved.</p>
       </div>
     </div>
   );

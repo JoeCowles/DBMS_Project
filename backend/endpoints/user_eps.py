@@ -20,7 +20,7 @@ class UserEPS:
         self.router.add_api_route("/login", self.login, methods=["POST"])
 
     def _to_dict(self, u):
-        return {"username": u.Username, "email": u.Email, "password": u.Password}
+        return {"id": u.ID, "username": u.Username, "email": u.Email, "password": u.Password}
 
     async def get_all_users(self):
         return [self._to_dict(u) for u in self.user_dao.get_all_users()]
@@ -39,6 +39,7 @@ class UserEPS:
         existing = self.user_dao.get_user_by_username(username)
         if not existing:
             raise HTTPException(status_code=404, detail="User not found")
+        existing.Username = user.username
         existing.Email = user.email
         existing.Password = user.password
         return self._to_dict(self.user_dao.update_user(existing))
